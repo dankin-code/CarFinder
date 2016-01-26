@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Car Recall Finder</title>
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="page-header">
+            <h1>Car Recall Finder</h1>
+            <small>This application provides the users with recall information provided by the National Highway Traffic Safety Administration (NHTSA)</small>
+        </div>
+    </div>
+    <div id="start" class="container-fluid" data-ng-app="CarFinderApp">
+        <div ng-controller="CarFinderAppController">
+            <div class="row">
+                <form>
+                    <div class="col-sm-3"><select id="yearSelection" class="form-control" ng-model="selectedYear" ng-options="year for year in years" ng-change="getMakes()"></select></div>
+                    <div class="col-sm-3"><select id="makeSelection" class="form-control" ng-disabled="selectedYear == null" ng-model="selectedMake" ng-options="make for make in makes" ng-change="getModels()"></select></div>
+                    <div class="col-sm-3"><select id="modelSelection" class="form-control" ng-disabled="selectedMake == null" ng-model="selectedModel" ng-options="model for model in models" ng-change="getTrims()"></select></div>
+                    <div class="col-sm-3"><select id="trimSelection" class="form-control" ng-disabled="selectedModel == null" ng-model="selectedTrim" ng-options="trim for trim in trims" ng-change="getCars()"></select></div>
+                </form>
+            </div>
+
+            <div id="carInfo" class="well">
+                <div class="row" ng-show="carData.myCar.model_year !=''">
+                    <div class="col-sm-3">Year:</div>
+                    <div class="col-sm-9"> {{carData.myCar.model_year}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.make !=''">
+                    <div class="col-sm-3">Make:</div>
+                    <div class="col-sm-9"> {{carData.myCar.make}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.model_name !=''">
+                    <div class="col-sm-3">Model:</div>
+                    <div class="col-sm-9"> {{carData.myCar.model_name}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.model_trim !=''">
+                    <div class="col-sm-3">Trim:</div>
+                    <div class="col-sm-9"> {{carData.myCar.model_trim}}</div>
+                </div>
+                <div class="row" ng-show="carData.car.body_style !=''">
+                    <div class="col-sm-3">Body Style:</div>
+                    <div class="col-sm-9"> {{carData.myCar.body_style}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.doors !=''">
+                    <div class="col-sm-3">Doors:</div>
+                    <div class="col-sm-9"> {{carData.myCar.doors}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.seats !=''">
+                    <div class="col-sm-3">Seats:</div>
+                    <div class="col-sm-9"> {{carData.myCar.seats}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.transmission_type !=''">
+                    <div class="col-sm-3">Transmission:</div>
+                    <div class="col-sm-9"> {{carData.myCar.transmission_type}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.engine_power_rps !=''">
+                    <div class="col-sm-3">Car Power:</div>
+                    <div class="col-sm-9"> {{carData.car.engine_power_rps}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.engine_torque_nm !=''">
+                    <div class="col-sm-3">Engine Torque:</div>
+                    <div class="col-sm-9"> {{carData.myCar.engine_torque_nm}}</div>
+                </div>
+                <div class="row" ng-show="carData.myCar.fuel_capacity_l !=''">
+                    <div class="col-sm-3">Fuel Capacity in Liters:</div>
+                    <div class="col-sm-9"> {{carData.myCar.fuel_capacity_l}}</div>
+                </div>
+            </div>
+
+            <div id="imageCarousel" class="well">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <uib-carousel interval="slideInterval" no-wrap="false">
+                            <uib-slide ng-repeat="url in carData.imageURLs">
+                                <img class="img-responsive" ng-src="{{url}}" />
+                            </uib-slide>
+                        </uib-carousel>
+                    </div>
+                </div>
+            </div>
+
+
+            <!--Hidden DIV containing car data results-->
+            <!--enter the recalls into a collapsible panel-->
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="panel" ng-show="carData.recalls.Count>0">
+                        <div class="panel-heading bg-red"><h3 class="panel-title" a href="" ng-click="isCollapsed = !isCollapsed" span="white bold">View Recall ({{carData.recalls.Count}})</h3></div>
+                        <div class="panel-body">
+                            <div ng-repeat="recall in carData.recalls.Results">
+                                <div class="bold" ng-show="recall.NHTSACampaignNumber !=null">
+                                    <div class="col-sm-3">NHTSACampaignNumber:</div>
+                                    <div class="col-sm-9">{{recall.NHTSACampaignNumber}}</div>
+                                </div>
+                                <div class="bold" ng-show="recall.Component !=null">
+                                    <div class="col-sm-3">Recall Component:</div>
+                                    <div class="col-sm-9">{{recall.Component}}</div>
+                                </div>
+                                <div class="bold" ng-show="recall.Summary !=null">
+                                    <div class="col-sm-3">Summary:</div>
+                                    <div class="col-sm-9">{{recall.Summary}}</div>
+                                </div>
+                                <div class="bold" ng-show="recall.Conequence !=null">
+                                    <div class="col-sm-3">Consequence:</div>
+                                    <div class="col-sm-9">{{recall.Conequence}}</div>
+                                </div>
+                                <div class="bold" ng-show="recall.Remedy !=null">
+                                    <div class="col-sm-3">Remedy:</div>
+                                    <div class="col-sm-9">{{recall.Remedy}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!--Javascript Files-->
+    <!--Angular JS-->
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/angular-resource.min.js"></script>
+    <script src="~/NgApps/app.js"></script>
+    <script src="~/NgApps/Controllers/CarFinderAppController.js"></script>
+
+    <!--Bootstrap UI-->
+    <script src="~/Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="~/Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+    <script src="~/Scripts/angular-animate.min.js"></script>
+
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+
+    <!--Bootstrap files-->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+</body>
+</html>
