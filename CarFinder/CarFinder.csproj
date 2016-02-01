@@ -44,6 +44,17 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="AzureConnection-Deployment" Order="1">
+          <Destination Path="Data Source=coderfoundry.cloudapp.net,55555%3bInitial Catalog=dkinai-carfinder%3bIntegrated Security=False%3bUser ID=dkinai%3bPassword=%2a%2a%2a%2a%2a%2a%2a%2a%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" />
+          <Object Type="DbFullSql" Enabled="True">
+            <PreSource Path="Data Source=coderfoundry.cloudapp.net,55555%3bInitial Catalog=dkinai-carfinder%3bIntegrated Security=False%3bUser ID=dkinai%3bPassword=%2a%2a%2a%2a%2a%2a%2a%2a%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" ScriptSchema="False" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Release\AutoScripts\AzureConnection-Deployment_DataOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -259,7 +270,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="images\CarFinderAppCollage.jpg" />
-    <Content Include="index.html" />
     <Content Include="NgApps\app.js" />
     <Content Include="NgApps\Controllers\CarFinderAppController.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -1088,6 +1098,7 @@
     <Content Include="bin\roslyn\Microsoft.CSharp.Core.targets" />
     <Content Include="bin\roslyn\Microsoft.VisualBasic.Core.targets" />
     <Content Include="bin\roslyn\VBCSCompiler.exe.config" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Properties\PublishProfiles\dkinai-carfinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.0.js" />
@@ -1141,8 +1152,6 @@
           <DevelopmentServerPort>61597</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:61597/</IISUrl>
-          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://dkinai-carfinder.azurewebsites.net</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
