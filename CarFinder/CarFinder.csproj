@@ -46,15 +46,9 @@
     <WarningLevel>4</WarningLevel>
     <PublishDatabaseSettings>
       <Objects>
-        <ObjectGroup Name="AzureConnection-Deployment" Order="1">
-          <Destination Path="Data Source=coderfoundry.cloudapp.net,55555%3bInitial Catalog=dkinai-carfinder%3bIntegrated Security=False%3bUser ID=dkinai%3bPassword=%2a%2a%2a%2a%2a%2a%2a%2a%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" />
-          <Object Type="DbFullSql" Enabled="True">
-            <PreSource Path="Data Source=coderfoundry.cloudapp.net,55555%3bInitial Catalog=dkinai-carfinder%3bIntegrated Security=False%3bUser ID=dkinai%3bPassword=%2a%2a%2a%2a%2a%2a%2a%2a%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False%3bApplicationIntent=ReadWrite%3bMultiSubnetFailover=False" ScriptSchema="False" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
-            <Source Path="obj\Release\AutoScripts\AzureConnection-Deployment_DataOnly.sql" Transacted="True" />
-          </Object>
-        </ObjectGroup>
       </Objects>
     </PublishDatabaseSettings>
+    <IncludeIisSettings>true</IncludeIisSettings>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

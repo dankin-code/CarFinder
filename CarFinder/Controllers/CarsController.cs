@@ -23,7 +23,7 @@ namespace CarFinder.Controllers
         /// <returns>IEnumerable list of years</returns>
 
         [HttpGet]
-        [Route("api/years")]
+        [Route("../api/years")]
         public async Task<IHttpActionResult> Years()
         {
             var retval = await db.Database.SqlQuery<string>("EXEC Years").ToListAsync();
@@ -39,7 +39,7 @@ namespace CarFinder.Controllers
         /// <returns>IEnumerable list of makes</returns>
 
         [HttpGet]
-        [Route("api/makes")] // declare 1 parameter: year
+        [Route("../api/makes")] // declare 1 parameter: year
         public async Task<IHttpActionResult> Makes(string year)
         {
             var retval = await db.Database.SqlQuery<string>("EXEC MakesByYear @year", new SqlParameter("year", year)).ToListAsync();
@@ -55,7 +55,7 @@ namespace CarFinder.Controllers
         /// <returns>IEnumerable list of models</returns>
 
         [HttpGet]
-        [Route("api/models")] // declare 2 parameters: year and make
+        [Route("../api/models")] // declare 2 parameters: year and make
         public async Task<IHttpActionResult> Models(string year, string make)
         {
             var retval = await db.Database.SqlQuery<string>("EXEC ModelsByYearMake @year, @make", new SqlParameter("year", year), new SqlParameter("make", make)).ToListAsync();
@@ -71,7 +71,7 @@ namespace CarFinder.Controllers
         /// <returns>IEnumerable list of trims</returns>
 
         [HttpGet]
-        [Route("api/trims")] //declare 3 parameters year, make, and model of the car
+        [Route("../api/trims")] //declare 3 parameters year, make, and model of the car
         public async Task<IHttpActionResult> Trims(string year, string make, string model)
         {
             var retval = await db.Database.SqlQuery<string>("EXEC TrimByYearMakeAndModel  @year, @make, @model", new SqlParameter("year", year), new SqlParameter("make", make), new SqlParameter("model", model)).ToListAsync();
@@ -91,7 +91,7 @@ namespace CarFinder.Controllers
         /// <param name="trim"></param>
         /// <returns></returns>
         [HttpGet]
-        [Route("api/cars")] //declare 4 parameters year, make, model, and trim of the car
+        [Route("../api/cars")] //declare 4 parameters year, make, model, and trim of the car
         public async Task<IHttpActionResult> GetCars(string year, string make, string model, string trim)
         {
             var carData = new CarData();
