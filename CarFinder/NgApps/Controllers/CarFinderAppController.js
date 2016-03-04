@@ -1,5 +1,5 @@
-﻿var app = angular.module('CarFinderApp')
-    .controller('CarFinderAppController', ['$scope','$http', function ($scope, $http){
+﻿var app = angular.module('CarFinderApp').controller('CarFinderAppController', ['$scope', '$http', function ($scope, $http)
+{
     $scope.years =[];
     $scope.make =[];
     $scope.models =[];
@@ -63,4 +63,4 @@
 
    $scope.getYears();
     
-    }]);
+}]);
