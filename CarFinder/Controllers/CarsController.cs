@@ -53,7 +53,6 @@ namespace CarFinder.Controllers
         /// Retrieves list of car models available
         /// </summary>
         /// <returns>IEnumerable list of models</returns>
-
         [HttpGet]
         [Route("api/models")] // declare 2 parameters: year and make
         public async Task<IHttpActionResult> Models(string year, string make)
@@ -140,9 +139,10 @@ namespace CarFinder.Controllers
 
                     //var query = webapi/api/Recalls/vehicle/modelyear
 
-                    response = client.GetAsync("webapi/api/Recalls/vehicle/modelyear/" + year + "/make/" + make + "/model/" + model + "?format=json").Result;
+                   response = client.GetAsync("webapi/api/Recalls/vehicle/modelyear/" + year + "/make/" + make + "/model/" + model + "?format=json").Result;
 
                     // 3)construct a Recalls object from the resulting JSON datase
+
                     recalls = response.Content.ReadAsAsync<Recalls>().Result;
                 }
 
